@@ -68,19 +68,30 @@ def hapus_game():
     else:
         print("Game tidak ditemukan.\n")
 
+def cari_game_berdasarkan_nama():
+    keyword = input("Masukkan kata kunci nama game: ").lower()
+    hasil = session.query(Game).filter(Game.nama.ilike(f"%{keyword}%")).all()
+    
+    if not hasil:
+        print("Tidak ditemukan game dengan nama tersebut.\n")
+    else:
+        print("\nHasil Pencarian:")
+        for g in hasil:
+            print(f"ID: {g.id} | Nama: {g.nama} | Genre: {g.genre}")
+        print()
+
 # Menu utama
 def menu():
-    # Loop menu
     while True: 
         print("=== Menu Daftar Game Favorit ===")
         print("1. Tambah Game")
         print("2. Lihat Game")
         print("3. Ubah Game")
         print("4. Hapus Game")
-        print("5. Keluar")
+        print("5. Cari Game berdasarkan Nama")
+        print("6. Keluar")
 
-        # Input pilihan user
-        pilihan = input("Pilih menu (1-5): ")
+        pilihan = input("Pilih menu (1-6): ")
         if pilihan == "1":
             tambah_game()
         elif pilihan == "2":
@@ -90,6 +101,8 @@ def menu():
         elif pilihan == "4":
             hapus_game()
         elif pilihan == "5":
+            cari_game_berdasarkan_nama()
+        elif pilihan == "6":
             print("Sampai jumpa, Gamer!")
             break
         else:
