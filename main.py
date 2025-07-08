@@ -92,6 +92,16 @@ def cari_game_berdasarkan_genre():
             print(f"ID: {g.id} | Nama: {g.nama} | Genre: {g.genre}")
         print()
 
+def cari_game_berdasarkan_id():
+    id_game = input("Masukkan ID Game: ")
+    game = session.query(Game).filter_by(id=id_game).first()
+    
+    if game:
+        print(f"\nGame ditemukan:")
+        print(f"ID: {game.id} | Nama: {game.nama} | Genre: {game.genre}\n")
+    else:
+        print("Game dengan ID tersebut tidak ditemukan.\n")
+
 def menu():
     while True: 
         print("=== Menu Daftar Game Favorit ===")
@@ -100,10 +110,11 @@ def menu():
         print("3. Ubah Game")
         print("4. Hapus Game")
         print("5. Cari Game berdasarkan Nama")
-        print("6. Cari Game berdasarkan Genre")  # <- Tambahkan ini
-        print("7. Keluar")  # <- Update angka keluar
+        print("6. Cari Game berdasarkan Genre")
+        print("7. Cari Game berdasarkan ID")  # <- Tambahan fitur ini
+        print("8. Keluar")  # <- Update angka keluar
 
-        pilihan = input("Pilih menu (1-7): ")
+        pilihan = input("Pilih menu (1-8): ")
         if pilihan == "1":
             tambah_game()
         elif pilihan == "2":
@@ -117,6 +128,8 @@ def menu():
         elif pilihan == "6":
             cari_game_berdasarkan_genre()
         elif pilihan == "7":
+            cari_game_berdasarkan_id()  # <- Panggil fungsi baru
+        elif pilihan == "8":
             print("Sampai jumpa, Gamer!")
             break
         else:
